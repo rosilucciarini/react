@@ -1,19 +1,36 @@
-const ItemListContainer = (props) => {
-    
-    return(
-        <main className="main">
-            <h2>
-               <strong> Bienvenido {props.nombre}!!!</strong>
-               </h2>
-            <p>Aca encontraras los mejores productos y precios en ropa deportiva</p>
-            <div className="imagen">
-                <img src="./src/imagenes/gym.jpg" alt="" />
-            </div>
+import {useEffect, useState} from 'react'
+import { useParams } from 'react-router-dom'
 
-        </main>
-    )
+import ItemList from './ItemList'
+
+const ItemListContainer = () => {
+    const [productos, setProductos] = useState([])
+    const {categoria}= useParams()
+    useEffect(()=> {
+        if(categoria){
+            fetch('../json/productos.json')
+            .then(response => response.json())
+            .then(items => {
+                const products = items.filter(prods => prods.categoria === categoria)
+                const productsList = ItemList({products})
+                console.log(productsList)
+                setProductos(productsList)
+            })
+        } else {
+            fetch('./json/productos.json')
+            .then(response => response.json())
+            .then(products => {
+                const productsList = ItemList({products})
+                console.log(productsList)
+                setProductos(productsList)
+            })
+        }
+    }, [categoria])
+    return (
+        <div className='cardProductos'>
+            {productos}
+        </div>
+    );
 }
-export default ItemListContainer
 
-//prop greeting
-//mostrar mensaje el mensaje dentro del contenedor con estilismo 
+export default ItemListContainer;

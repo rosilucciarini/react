@@ -1,4 +1,6 @@
 import CartWidget from "./CartWidget"
+import { NavLink } from "react-router-dom"
+
 
 
 
@@ -9,9 +11,10 @@ const NavBar = () => {
             <h1>TOTAL DEPORTES</h1>
            
             <nav className="navbar">
-                <a href="">Inicio</a>
-                <a href="">Productos</a>
-                <a href="">Contacto</a>
+            <NavLink to="/">Home</NavLink>
+            <NavLink to="/categoria/indumentaria">Ropa</NavLink>
+            <NavLink to="/categoria/calzado">Calzado</NavLink>
+            <NavLink to="/categoria/accesorios">Accesorios</NavLink>
 
                 <CartWidget/>
 
@@ -21,6 +24,3 @@ const NavBar = () => {
 }
 export default NavBar
 
-//titulo nombre de la tienda
-//listado de categrias clickeables
-//estilos cpn taiwin
